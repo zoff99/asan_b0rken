@@ -27,4 +27,4 @@ jobs:
                     id;ls -al /work/; # compile command here
                     cd /work/
                     clang-14 -O0 -g a.c  -fsanitize=address   -fsanitize-recover=address -o b
-                    ./a;./a;./a;./a;./a;./a;./a;./a;./a;./a
+                    ./b;./b;./b;./b;./b;./b;./b;./b;./b;./b
