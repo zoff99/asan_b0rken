@@ -16,8 +16,8 @@ jobs:
                 image: debian:12
                 options: -v ${{ github.workspace }}:/work
                 run: |
-                    sudo apt-get update && \
-                    sudo DEBIAN_FRONTEND=noninteractive \
+                    apt-get update && \
+                    DEBIAN_FRONTEND=noninteractive \
                     apt-get install -y --no-install-recommends \
                     ca-certificates \
                     clang-13 clang-14
