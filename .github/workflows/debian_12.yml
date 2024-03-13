@@ -20,7 +20,10 @@ jobs:
                     DEBIAN_FRONTEND=noninteractive \
                     apt-get install -y --no-install-recommends \
                     ca-certificates \
-                    clang-13 clang-14
+                    libasan6 \
+                    libasan8 \
+                    clang-13 clang-14 \
+                    libclang-rt-dev
                     id;ls -al /work/; # compile command here
                     cd /work/
                     clang-14 -O0 -g a.c  -fsanitize=address   -fsanitize-recover=address -o b
