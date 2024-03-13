@@ -1,0 +1,35 @@
+name: asan_test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  amalgamation_test:
+    runs-on: debian-12
+    steps:
+      - uses: actions/checkout@v4
+      - name: install dependencies
+        run: |
+          sudo apt-get update && \
+          sudo DEBIAN_FRONTEND=noninteractive \
+          apt-get install -y --no-install-recommends \
+          ca-certificates \
+          clang-13 clang-14
+
+      - name: compile
+        run: |
+          clang-13 -O0 -g a.c  -fsanitize=address   -fsanitize-recover=address -o a
+
+      - name: run binary
+        run: |
+          ./a;./a;./a;./a;./a;./a;./a;./a;./a;./a
+
+      - name: compile
+        run: |
+          clang-14 -O0 -g a.c  -fsanitize=address   -fsanitize-recover=address -o b
+
+      - name: run binary
+        run: |
+          ./b;./b;./b;./b;./b;./b;./b;./b;./b;./b
+
