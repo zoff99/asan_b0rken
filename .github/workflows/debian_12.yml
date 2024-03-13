@@ -1,4 +1,4 @@
-name: asan_test
+name: debian-12
 
 on:
   push:

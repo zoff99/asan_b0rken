@@ -1,4 +1,4 @@
-name: asan_test
+name: ubuntu-22.04
 
 on:
   push:
