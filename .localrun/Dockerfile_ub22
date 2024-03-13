@@ -1,0 +1,11 @@
+# syntax=docker/dockerfile:1
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+        apt-get -y --force-yes install \
+        ca-certificates \
+        nano \
+        coreutils \
+        clang-13 clang-14
