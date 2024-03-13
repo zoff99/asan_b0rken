@@ -5,31 +5,22 @@ on:
   pull_request:
 
 jobs:
-  amalgamation_test:
-    runs-on: debian-12
-    steps:
-      - uses: actions/checkout@v4
-      - name: install dependencies
-        run: |
-          sudo apt-get update && \
-          sudo DEBIAN_FRONTEND=noninteractive \
-          apt-get install -y --no-install-recommends \
-          ca-certificates \
-          clang-13 clang-14
-
-      - name: compile
-        run: |
-          clang-13 -O0 -g a.c  -fsanitize=address   -fsanitize-recover=address -o a
-
-      - name: run binary
-        run: |
-          ./a;./a;./a;./a;./a;./a;./a;./a;./a;./a
-
-      - name: compile
-        run: |
-          clang-14 -O0 -g a.c  -fsanitize=address   -fsanitize-recover=address -o b
-
-      - name: run binary
-        run: |
-          ./b;./b;./b;./b;./b;./b;./b;./b;./b;./b
-
+    compile:
+        name: debian test
+        runs-on: ubuntu-22.04
+        steps:
+          - uses: actions/checkout@v3
+          - name: Run test
+            uses: addnab/docker-run-action@v3
+            with:
+                image: debian:12
+                options: -v ${{ github.workspace }}:/work
+                run: |
+                    sudo apt-get update && \
+                    sudo DEBIAN_FRONTEND=noninteractive \
+                    apt-get install -y --no-install-recommends \
+                    ca-certificates \
+                    clang-13 clang-14
+                    id;ls -al /work/; # compile command here
+                    clang-14 -O0 -g a.c  -fsanitize=address   -fsanitize-recover=address -o b
+                    ./a;./a;./a;./a;./a;./a;./a;./a;./a;./a
